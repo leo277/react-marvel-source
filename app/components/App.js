@@ -1,42 +1,33 @@
 import React, { Component } from 'react';
 import Home from './Home';
 import Header from './Header';
-import Increase from './Increase';
 
 class App extends Component {
-
 	constructor() {
 		super();
 		this.state = {
 			title: 'Marvel Future Fight'
 		};
 	}
-
 	render() {
-		var user = {
-			name: "Yonk",
-			hobbies: ["Draw", "Program"]
-		}
 		return(
 			<div>
 				<div className="container">
 					<div className="row">
-						<div className="col-xs-10 col-xs-offset-1">
-							<Header title={this.state.title} user={user}>
-								<p>Im child</p>
-							</Header>
+						<div className="col-lg-12">
+							<Header title={this.state.title}/>
 						</div>
 					</div>
 				</div>
 				<div className="container">
 					<div className="row">
-						<div className="col-xs-10 col-xs-offset-1">
-							<Home/>
+						<div className="col-lg-12">
+							<Home>
+								<div>Home Children</div>
+							</Home>
 						</div>
 					</div>
 				</div>
-				<Increase initialNum={5} />
-				<Increase />
 			</div>
 		);
 	}
