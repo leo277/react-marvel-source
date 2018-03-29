@@ -36,7 +36,7 @@ class Developer extends React.Component {
 		const { list, searchTerm } = this.state;
 		return(
 			<div>
-				<Search value={searchTerm} onChange={this.onSearchChange} />
+				<Search value={searchTerm} onChange={this.onSearchChange}>Search</Search>
 				<DataList list={list} pattern={searchTerm} onDismiss={this.dismiss} />
 			</div>
 		);

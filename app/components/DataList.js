@@ -7,6 +7,7 @@ import Typography from 'material-ui/Typography';
 import Badge from 'material-ui/Badge';
 
 /** 
+* functional stateless component
 * A list in card style, that display a list based on a searchTerm 
 * that matches the specified data in the list.
 * Each item on the list can be removed based on the item id
@@ -33,44 +34,39 @@ const styles = theme => ({
 
 const isSearched = searchTerm => item => item.title.toLowerCase().includes(searchTerm.toLowerCase());
 
-class DataList extends Component {
-	render(){
-		const { classes, list, pattern, onDismiss } = this.props;
-		return(
-			<div>
-				{ list.filter(isSearched(pattern)).map( (person, key) => (
-						<Card className={classes.card} key={key}>
-							<CardContent>
-								<Typography className={classes.title} color="textSecondary">
-				           	 		<Button color="secondary" variant="raised" href={person.url}>{person.title}</Button>
-					         	</Typography>
-								<Typography className={classes.pos} color="textSecondary">
-					            	{person.author}
-					          	</Typography>
-								<Badge className={classes.padding} badgeContent={person.num_comments} color="primary">
-						          Comments
-						        </Badge>
-						        <Badge className={classes.padding} badgeContent={person.points} color="primary">
-						          Points
-						        </Badge>
-							</CardContent>
-							<CardActions>
-					          <Button 
-					          	onClick={ () => onDismiss(person.objectId) } 
-					          	type="button" 
-					          	size="small"
-					          >
-					          	DISMISS
-					          </Button>
-					        </CardActions>
-						</Card>
-						)
-					)
-				}
-			</div>
-		);
-	}
-}
+const DataList = ({classes, list, pattern, onDismiss }) => (
+	<div>
+		{ list.filter(isSearched(pattern)).map( (person, key) => (
+				<Card className={classes.card} key={key}>
+					<CardContent>
+						<Typography className={classes.title} color="textSecondary">
+		           	 		<Button color="secondary" variant="raised" href={person.url}>{person.title}</Button>
+			         	</Typography>
+						<Typography className={classes.pos} color="textSecondary">
+			            	{person.author}
+			          	</Typography>
+						<Badge className={classes.padding} badgeContent={person.num_comments} color="primary">
+				          Comments
+				        </Badge>
+				        <Badge className={classes.padding} badgeContent={person.points} color="primary">
+				          Points
+				        </Badge>
+					</CardContent>
+					<CardActions>
+			          <Button 
+			          	onClick={ () => onDismiss(person.objectId) } 
+			          	type="button" 
+			          	size="small"
+			          >
+			          	DISMISS
+			          </Button>
+			        </CardActions>
+				</Card>
+				)
+			)
+		}
+	</div>
+);
 
 DataList.propTypes = {
   classes: PropTypes.object.isRequired,

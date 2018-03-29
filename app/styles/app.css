@@ -10,7 +10,7 @@
 
 #search__bar{
 	width: 80%;
-	margin: 0 auto;
+	margin: 4px auto;
 }
 
 @media only screen and (max-width: 400px){
