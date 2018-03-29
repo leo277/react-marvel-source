@@ -37,7 +37,6 @@ class AdvancedGridList extends React.Component{
   }
   updateCol(){
     if(window.innerWidth < 400){
-      console.log(true);
       this.setState({col: 2});
     }else{
       this.setState({col: 4});
