@@ -8,6 +8,11 @@
 	padding: 24px;
 }
 
+#search__bar{
+	width: 80%;
+	margin: 0 auto;
+}
+
 @media only screen and (max-width: 400px){
 	.padding-responsive{
 		padding: 0;

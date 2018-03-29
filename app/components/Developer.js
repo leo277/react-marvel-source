@@ -5,8 +5,8 @@ import Card, { CardActions, CardContent } from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import Badge from 'material-ui/Badge';
-import IconButton from 'material-ui/IconButton';
-import MailIcon from 'material-ui-icons/Mail';
+import SearchIcon from 'material-ui-icons/Search';
+import Input, { InputAdornment } from 'material-ui/Input';
 import developerData from './developerData';
 
 const styles = theme => ({
@@ -31,15 +31,22 @@ const styles = theme => ({
   padding: {
     padding: `0 ${theme.spacing.unit * 2}px`,
   },
+  input: {
+    margin: theme.spacing.unit * 2,
+  },
 });
+
+const isSearched = searchTerm => item => item.title.toLowerCase().includes(searchTerm.toLowerCase());
 
 class Developer extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			list: developerData || []
+			list: developerData || [],
+			searchTerm: '',
 		}
 		this.dismiss = this.dismiss.bind(this);
+		this.onSearchChange = this.onSearchChange.bind(this);
 	}
 
 	dismiss(id){
@@ -52,11 +59,27 @@ class Developer extends React.Component {
 		);
 	}
 
+	onSearchChange(event){
+		this.setState({
+			searchTerm: event.target.value
+		});
+	}
+
 	render(){
 		const { classes } = this.props;
 		return(
 			<div>
-				{ this.state.list.map( (person, key) => (
+				<div id="search__bar">
+				<Input
+					fullWidth={true}
+			        placeholder="Search"
+			        className={classes.input}
+			        startAdornment={<InputAdornment position="start"><SearchIcon/></InputAdornment>}
+			        onChange={this.onSearchChange}
+			      />
+			      </div>
+
+				{ this.state.list.filter(isSearched(this.state.searchTerm)).map( (person, key) => (
 						<Card className={classes.card} key={key}>
 							<CardContent>
 								<Typography className={classes.title} color="textSecondary">
