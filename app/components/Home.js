@@ -5,9 +5,9 @@ import AppBar from 'material-ui/AppBar';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import Typography from 'material-ui/Typography';
 import AdvancedGridList from './AdvancedGridList';
-import imageData from './imageData';
-import heroData from './heroData';
 import Developer from './Developer';
+import imageData from '../data/imageData';
+import heroData from '../data/heroData';
 
 function TabContainer(props) {
   return (
