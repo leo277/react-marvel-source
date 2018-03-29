@@ -7,6 +7,7 @@ import Typography from 'material-ui/Typography';
 import AdvancedGridList from './AdvancedGridList';
 import imageData from './imageData';
 import heroData from './heroData';
+import Developer from './Developer';
 
 function TabContainer(props) {
   return (
@@ -51,7 +52,7 @@ class Home extends React.Component {
         </AppBar>
         {value === 0 && <TabContainer><AdvancedGridList fileData={imageData}/></TabContainer>}
         {value === 1 && <TabContainer><AdvancedGridList fileData={heroData}/></TabContainer>}
-        {value === 2 && <TabContainer>All</TabContainer>}
+        {value === 2 && <TabContainer><Developer/></TabContainer>}
       </div>
     );
   }
