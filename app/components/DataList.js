@@ -54,7 +54,7 @@ const DataList = ({classes, list, pattern, onDismiss }) => (
 					</CardContent>
 					<CardActions>
 			          <Button 
-			          	onClick={ () => onDismiss(person.objectId) } 
+			          	onClick={ () => onDismiss(person.objectID) } 
 			          	type="button" 
 			          	size="small"
 			          >

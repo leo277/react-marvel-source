@@ -6,7 +6,7 @@ const list = [
 		author: 'yk',
 		num_comments: 3,
 		points: 4,
-		objectId: 0,
+		objectID: 0,
 	},
 	{
 		title: 'Google',
@@ -14,7 +14,7 @@ const list = [
 		author: 'qq',
 		num_comments: 2,
 		points: 4,
-		objectId: 1,
+		objectID: 1,
 
 	},
 	{
@@ -23,7 +23,7 @@ const list = [
 		author: 'ww',
 		num_comments: 3,
 		points: 4,
-		objectId: 2,
+		objectID: 2,
 
 	},
 	{
@@ -32,7 +32,7 @@ const list = [
 		author: 'ee',
 		num_comments: 3,
 		points: 0,
-		objectId: 3,
+		objectID: 3,
 
 	},
 	{
@@ -41,7 +41,7 @@ const list = [
 		author: 'rr',
 		num_comments: 3,
 		points: 4,
-		objectId: 4,
+		objectID: 4,
 
 	},
 	{
@@ -50,7 +50,7 @@ const list = [
 		author: 'tt',
 		num_comments: 3,
 		points: 4,
-		objectId: 5,
+		objectID: 5,
 
 	},
 

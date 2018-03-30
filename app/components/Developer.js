@@ -16,7 +16,7 @@ class Developer extends React.Component {
 	}
 
 	dismiss(id){
-		const isNotId = item => item.objectId !== id;
+		const isNotId = item => item.objectID !== id;
 		const filteredList = this.state.list.filter( isNotId );
 		this.setState(
 			{
@@ -32,7 +32,6 @@ class Developer extends React.Component {
 	}
 
 	render(){
-		const { classes } = this.props;
 		const { list, searchTerm } = this.state;
 		return(
 			<div>

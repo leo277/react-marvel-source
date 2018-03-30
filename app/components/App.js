@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import createPalette from 'material-ui/styles/createPalette'
 import createMuiTheme from 'material-ui/styles/createMuiTheme'
@@ -8,8 +9,21 @@ import Header from './Header';
 class App extends Component {
 	constructor() {
 		super();
+		this.state = {
+			completed: false,
+		}
+		this.loaderComplete = this.loaderComplete.bind(this);
+	}
+	componentWillMount(){
+		setTimeout(this.loaderComplete, 500);
+	}
+	loaderComplete(){
+		this.setState({
+			completed: true,
+		});
 	}
 	render() {
+		const { completed } = this.state;
 		const muiTheme = createMuiTheme({
 		  palette: {
 		    primary: {
@@ -28,14 +42,21 @@ class App extends Component {
 		});
 		return(
 			<MuiThemeProvider theme={muiTheme}> 
-			  	<div>
-					<div>
-						<Header />
+				{ !completed && 
+					<div id="loader">
+						<img src="/app/images/logo.png"/>
 					</div>
-					<div>
-						<Home />
+				}
+			  	{ completed &&
+			  		<div>
+						<div>
+							<Header />
+						</div>
+						<div>
+							<Home />
+						</div>
 					</div>
-				</div>
+				}
     		</MuiThemeProvider>
 		);
 	}
