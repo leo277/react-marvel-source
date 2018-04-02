@@ -33,10 +33,10 @@ const styles = theme => ({
 });
 
 const isSearched = searchTerm => item => item.title.toLowerCase().includes(searchTerm.toLowerCase());
-
-const DataList = ({classes, list, pattern, onDismiss }) => (
+// list.filter(isSearched(pattern)).map( (person, key) => ( ... ) // client side filtering
+const DataList = ({classes, list, onDismiss }) => (
 	<div>
-		{ list.filter(isSearched(pattern)).map( (person, key) => (
+		{ list.map( (person, key) => (
 				<Card className={classes.card} key={key}>
 					<CardContent>
 						<Typography className={classes.title} color="textSecondary">

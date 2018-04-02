@@ -29,7 +29,9 @@ class HackerNews extends Component {
 			completed: false,
 		};
 		this.setSearchTopStories = this.setSearchTopStories.bind(this);
+		this.fetchSearchTopStoreis = this.fetchSearchTopStoreis.bind(this);
 		this.onSearchChange = this.onSearchChange.bind(this);
+		this.onSearchSubmit = this.onSearchSubmit.bind(this);
 		this.dismiss = this.dismiss.bind(this);
 	}
 
@@ -37,6 +39,20 @@ class HackerNews extends Component {
 		this.setState({
 			result
 		});
+	}
+
+	fetchSearchTopStoreis(searchTerm){
+		this.setState({completed: false});
+		fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}`)
+		.then(response => response.json())
+		.then(result => { this.setSearchTopStories(result); this.setState({completed: true})} )
+		.catch(error => error);
+	}
+
+	onSearchSubmit(event){
+		const { searchTerm } = this.state;
+		this.fetchSearchTopStoreis(searchTerm);
+		event.preventDefault();
 	}
 
 	onSearchChange(event){
@@ -57,10 +73,7 @@ class HackerNews extends Component {
 
 	componentDidMount(){
 		const { searchTerm } = this.state;
-		fetch(url)
-		.then(response => response.json())
-		.then( (result) => { this.setSearchTopStories(result); this.setState({completed: true})} )
-		.catch(error => error);
+		this.fetchSearchTopStoreis(searchTerm);
 	}
 
 	render(){
@@ -75,10 +88,9 @@ class HackerNews extends Component {
 				}
 				{ result && 
 					<div>
-						<Search value={searchTerm} onChange={this.onSearchChange}>Search</Search>
+						<Search value={searchTerm} onChange={this.onSearchChange} onSubmit={this.onSearchSubmit}>Search</Search>
 						<DataList
 						list={result.hits}
-						pattern={searchTerm}
 						onDismiss={this.dismiss}
 						/>
 					</div>
@@ -87,7 +99,6 @@ class HackerNews extends Component {
 		);
 	}
 }
-
 
 HackerNews.propTypes = {
 	classes: PropTypes.object.isRequired,
