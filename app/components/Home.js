@@ -6,6 +6,7 @@ import Tabs, { Tab } from 'material-ui/Tabs';
 import Typography from 'material-ui/Typography';
 import AdvancedGridList from './AdvancedGridList';
 import HackerNews from './HackerNews';
+import Work from './Work';
 import Developer from './Developer';
 import imageData from '../data/imageData';
 import heroData from '../data/heroData';
@@ -46,16 +47,14 @@ class Home extends React.Component {
       <div className={classes.root}>
         <AppBar position="static">
           <Tabs value={value} onChange={this.handleChange}>
-            <Tab label="HEROES" />
-            <Tab label="VILLAINS" />
-            <Tab label="ALL" href="#basic-tabs" />
-            <Tab label="Hacker News" href="#basic-tabs" />
+            <Tab label="My Skills" />
+            <Tab label="Cat Gallery"  />
+            <Tab label="Hacker News" />
           </Tabs>
         </AppBar>
-        {value === 0 && <TabContainer><AdvancedGridList fileData={imageData}/></TabContainer>}
+        {value === 0 && <TabContainer><Work/></TabContainer>}
         {value === 1 && <TabContainer><AdvancedGridList fileData={heroData}/></TabContainer>}
-        {value === 2 && <TabContainer><Developer/></TabContainer>}
-        {value === 3 && <TabContainer><HackerNews/></TabContainer>}
+        {value === 2 && <TabContainer><HackerNews/></TabContainer>}
       </div>
     );
   }

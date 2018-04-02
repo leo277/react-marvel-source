@@ -52,7 +52,7 @@ render() {
         <List>{otherMailFolderListItems}</List>
       </div>
     );
-    const title = 'MARVEL FUTURE FIGHT';
+    const title = 'YONGKAI\'s GITHUB IO';
     return (
       <div className={classes.root}>
         <AppBar position="static" color="inherit">
