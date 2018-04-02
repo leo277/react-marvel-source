@@ -32,7 +32,7 @@ const styles = theme => ({
   },
 });
 
-const isSearched = searchTerm => item => item.title.toLowerCase().includes(searchTerm.toLowerCase());
+// const isSearched = searchTerm => item => item.title.toLowerCase().includes(searchTerm.toLowerCase());
 // list.filter(isSearched(pattern)).map( (person, key) => ( ... ) // client side filtering
 const DataList = ({classes, list, onDismiss }) => (
 	<div>
