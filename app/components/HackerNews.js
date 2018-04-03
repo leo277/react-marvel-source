@@ -5,7 +5,7 @@ import DataList from './DataList';
 import { withStyles } from 'material-ui/styles';
 import { LinearProgress } from 'material-ui/Progress';
 import Button from 'material-ui/Button';
-
+import axios from 'axios';
 /** Retrieve news from hackernews API */
 
 const DEFAULT_QUERY = 'redux';
@@ -33,6 +33,7 @@ class HackerNews extends Component {
 			searchKey: '',
 			searchTerm: DEFAULT_QUERY,
 			completed: false,
+			error: null,
 		};
 		this.needToSearchTopStories = this.needToSearchTopStories.bind(this);
 		this.setSearchTopStories = this.setSearchTopStories.bind(this);
@@ -61,11 +62,12 @@ class HackerNews extends Component {
 	}
 
 	fetchSearchTopStoreis(searchTerm, page=0){
+		//using axios instead of fetch to solve old browser issue
+		//response no need to json, just use repsonse.data
 		this.setState({completed: false});
-		fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
-		.then(response => response.json())
-		.then(result => { this.setSearchTopStories(result); this.setState({completed: true})} )
-		.catch(error => error);
+		axios(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
+		.then(result => { this.setSearchTopStories(result.data); this.setState({completed: true})} )
+		.catch(error => this.setState({error}));
 	}
 
 	onSearchSubmit(event){
@@ -106,7 +108,7 @@ class HackerNews extends Component {
 
 	render(){
 		const { classes } = this.props;
-		const { searchTerm, results, completed, searchKey } = this.state;
+		const { searchTerm, results, completed, searchKey, error } = this.state;
 		const page = (results && results[searchKey] && results[searchKey].page ) || 0;
 		const list = (results && results[searchKey] && results[searchKey].hits ) || [];
 
@@ -117,6 +119,7 @@ class HackerNews extends Component {
 						<LinearProgress color="secondary"/>
 					</div>
 				}
+				{error && <p> Somethign went wrong! </p>}
 				{ results && 
 					<div>
 						<Search value={searchTerm} onChange={this.onSearchChange} onSubmit={this.onSearchSubmit}>Search</Search>
