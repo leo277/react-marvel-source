@@ -26,6 +26,10 @@ const styles = {
 };
 
 class HackerNews extends Component {
+	//for terminating unfinished component request 
+	// when navigating away from current component
+	_isMounted = false; 
+
 	constructor(props){
 		super(props);
 		this.state = {
@@ -66,8 +70,8 @@ class HackerNews extends Component {
 		//response no need to json, just use repsonse.data
 		this.setState({completed: false});
 		axios(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
-		.then(result => { this.setSearchTopStories(result.data); this.setState({completed: true})} )
-		.catch(error => this.setState({error}));
+		.then(result => { this._isMounted && this.setSearchTopStories(result.data); this.setState({completed: true})} )
+		.catch(error => this._isMounted && this.setState({error}));
 	}
 
 	onSearchSubmit(event){
@@ -101,9 +105,13 @@ class HackerNews extends Component {
 	}
 
 	componentDidMount(){
+		this._isMounted = true;
 		const { searchTerm } = this.state;
 		this.setState({searchKey: searchTerm});
 		this.fetchSearchTopStoreis(searchTerm);
+	}
+	componentWillUnmount(){
+		this._isMounted = false;
 	}
 
 	render(){
