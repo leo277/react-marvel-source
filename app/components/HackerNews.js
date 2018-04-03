@@ -4,15 +4,20 @@ import Search from './Search';
 import DataList from './DataList';
 import { withStyles } from 'material-ui/styles';
 import { LinearProgress } from 'material-ui/Progress';
+import Button from 'material-ui/Button';
+
 /** Retrieve news from hackernews API */
 
 const DEFAULT_QUERY = 'redux';
+const DEFAULT_HPP = '10';
 
 const PATH_BASE = 'https://hn.algolia.com/api/v1';
 const PATH_SEARCH = '/search';
 const PARAM_SEARCH = 'query=';
+const PARAM_PAGE = 'page=';
+const PARAM_HPP = 'hitsPerPage=';
 
-const url = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${DEFAULT_QUERY}`;
+const url = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${DEFAULT_QUERY}&${PARAM_PAGE}`;
 
 const styles = {
   root: {
@@ -36,14 +41,18 @@ class HackerNews extends Component {
 	}
 
 	setSearchTopStories(result){
+		const { hits, page } = result;
+		const oldHits = page !== 0 ? this.state.result.hits : [];
+		const updatedHits = [ ...oldHits, ...hits ];
+
 		this.setState({
-			result
+			result: {hits: updatedHits, page}
 		});
 	}
 
-	fetchSearchTopStoreis(searchTerm){
+	fetchSearchTopStoreis(searchTerm, page=0){
 		this.setState({completed: false});
-		fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}`)
+		fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
 		.then(response => response.json())
 		.then(result => { this.setSearchTopStories(result); this.setState({completed: true})} )
 		.catch(error => error);
@@ -79,6 +88,8 @@ class HackerNews extends Component {
 	render(){
 		const { classes } = this.props;
 		const { searchTerm, result, completed } = this.state;
+		const page = (result && result.page ) || 0;
+
 		return(
 			<div>
 				{ !completed && 
@@ -93,6 +104,7 @@ class HackerNews extends Component {
 						list={result.hits}
 						onDismiss={this.dismiss}
 						/>
+						<Button variant="raised" color="secondary" onClick={ () => this.fetchSearchTopStoreis(searchTerm, page + 1)} >More</Button>
 					</div>
 				}
 			</div>
